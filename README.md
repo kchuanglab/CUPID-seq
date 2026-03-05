@@ -1,17 +1,17 @@
 # 16S-dual-index
 
-[![Documentation](https://img.shields.io/badge/docs-online-5b9aa0)](https://rlporter24.github.io/CUPID-seq/)
+[![Documentation](https://img.shields.io/badge/docs-online-5b9aa0)](https://kchuanglab.github.io/CUPID-seq/)
 
 The following document describes how to use the Docker and Singularity/Apptainer images to use our demultiplexing code. By using these containerization platforms, users can avoid the time consuming process of installing dependencies and configuring environments and conduct analyses in a highly reproducible manner. 
 
 **Contents:**
-* [Using Docker](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#using-docker)
-* [Using Singularity/Apptainer](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#using-singularityapptainer)
-* [Inputs](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#inputs)
-* [Building Images](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#building-images)
-* [Building with Docker](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#building-with-docker)
-* [Building with Singularity/Apptainer](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#building-with-singularityapptainer)
-* [Custom Primers](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#custom-primers)
+* [Using Docker](https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/README.md#using-docker)
+* [Using Singularity/Apptainer](https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/README.md#using-singularityapptainer)
+* [Inputs](https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/README.md#inputs)
+* [Building Images](https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/README.md#building-images)
+* [Building with Docker](https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/README.md#building-with-docker)
+* [Building with Singularity/Apptainer](https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/README.md#building-with-singularityapptainer)
+* [Custom Primers](https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/README.md#custom-primers)
 
 ## Using Docker
 To analyze our code to analyze dual-indexed sequencing data, first ensure that Docker is installed. Docker is a handy platform for sharing not only code but also coding environments, which enables easy code sharing without hours of installing dependencies. You can find instructions on Docker installation here {https://docs.docker.com/engine/install/}. Once Docker is installed, open the Docker desktop application or run ‘systemctl start docker’ to launch the Docker Daemon. 
@@ -34,7 +34,7 @@ To analyze our code to analyze dual-indexed sequencing data, first ensure that D
   to open a container from the image rlporter24/dualindex-demux in an interactive mode (specified by the flags -it). If you built your own image, replace 'rlporter24/dualindex-demux' with the  '{name}:{version}' you provided for the build. In this mode, we can enter a series of commands, step by step within this container. All of the necessary input files are already included within the container, so no files need to be imported. To run the test, run:\
   `snakemake --cores 1 -s test_Snakefile`\
  (or replace 1 with the desired number of cores for this run)\. This should take under 5 minutes, and will run a test analysis using ‘config/test_fastq.txt’, ‘config/test_samplesheet.txt’ and test files included in /fastq_data/test/. The output files will be generated in the ‘workflow/test_out/’ directory. If the run is successful, the following outputs should be generated in ‘workflow/test_out/trimmed’:\
- <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/testSuccessOutputs.png?raw=true" alt="Alt Text" width="400" height="1000">\
+ <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/testSuccessOutputs.png?raw=true" alt="Alt Text" width="400" height="1000">\
 ### ^ THIS WILL NEED TO BE UPDATED WITH NEW NAMES!\
 
   If these files are generated in ‘trimmed’, the run has been successful! To exit the container, simply type ‘exit’, or stay in the container to run the actual analysis.
@@ -53,7 +53,7 @@ In the ‘config’ directory, update ‘config.yaml’ so that `samplesheet:` a
 Once the inputs and paths are updated, run:\
 `snakemake --cores 1`\
 within the 16S-demux directory (replacing 1 with the desired number of cores). The analysis time will vary with the number and size of input files as well as the machine used. If the run is successful, a message similar to that below should be output:\
-<img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/snakemakeSuccessOutput.png?raw=true" alt="Alt Text" width="750" height="400">\
+<img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/snakemakeSuccessOutput.png?raw=true" alt="Alt Text" width="750" height="400">\
 \
 __Note:__ Before starting the actual run, you can use the command ‘snakemake -n’ to do a dry run. This is helpful for ensuring that names and file locations are correct before starting the full run.
 
@@ -88,7 +88,7 @@ Depending on the resources available locally, you can run the analysis in an int
    To check that the set up was successful, run a quick analysis using provided test data. To do this, run:\
   `snakemake --cores 1 -s test_Snakefile`
   within the ‘16S_demux_edits’ directory. This should take about 16 minutes depending on your system, and will run a test analysis using ‘config/test_fastq.txt’,   ‘config/test_samplesheet.txt’ and the test files included in /fastq_data/test/. The output files will be generated in the ‘workflow/test_out/’ directory. If the run is successful, the following outputs should be generated within the test_out/trimmed directory:\
-     <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/testSuccessOutputs.png?raw=true" alt="Alt Text" width="400" height="1000">\
+     <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/testSuccessOutputs.png?raw=true" alt="Alt Text" width="400" height="1000">\
    ### ^ THIS WILL NEED TO BE UPDATED WITH NEW NAMES!\
   If the files are generated in the ‘trimmed’ directory are all present, the run has been successful.\
   To exit the container, simply type ‘exit’.
@@ -101,7 +101,7 @@ Depending on the resources available locally, you can run the analysis in an int
   in the 16S-demux directory to start the analysis.\
 \
 The analysis time will vary with the number and size of input files. If the run is successful, a message similar to that below should be output:\
-  <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/snakemakeSuccessOutput.png?raw=true" alt="Alt Text" width="750" height="400">\
+  <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/snakemakeSuccessOutput.png?raw=true" alt="Alt Text" width="750" height="400">\
 __Note:__ Before starting the actual run, you can use the command `snakemake -n` to do a dry run. This is helpful for ensuring that names and file locations are correct before starting the full run.
 
 ### Running with resource manager:
@@ -111,7 +111,7 @@ Most HPC clusters will use a resource manager, such as Slurm. To run the analysi
 To check that the set up was successful, run a quick analysis using provided test data. To do this, edit the draft script ('submit_test_snakemake.sh') to submit to a job manager. The script should run the following line from the 16s-demux direcotry:\
   `singularity exec ../demux-image.sif snakemake --cores 1 -s test_Snakefile`. (Replace 1 with the desired number of cores)\
 This should take around 10 minutes depending on your system, and will run a test analysis using ‘config/test_fastq.txt’, ‘config/test_samplesheet.txt’, and the test files included in /fastq_data/test/. The output files will be generated in the ‘workflow/test_out/’ directory. If the run is successful, the following outputs should be generated within the test_out/trimmed directory:\
-     <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/testSuccessOutputs.png?raw=true" alt="Alt Text" width="400" height="1000">\
+     <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/testSuccessOutputs.png?raw=true" alt="Alt Text" width="400" height="1000">\
      ### ^ THIS WILL NEED TO BE UPDATED WITH NEW NAMES!\
    \
   If the files are generated in the ‘trimmed’ directory are all present, the run has been successful.\
@@ -130,7 +130,7 @@ The general file structure created by the Docker/Singularity images is shown bel
 Test files are included within config/ (‘test_config.yaml’, ‘test_fastq.txt’, ‘test_samplesheet.txt’), and the official config.yaml file, fastq file list, and samplesheets should also be included in the config folder. Below, the fastq file list and samplesheets are named ‘fastqlist.txt’ and ‘samplesheet.tsv’ respectively, but the names can vary. The indexfordemux.txt file, includes the unique in-line indices. The default indexfordemux.txt file features the 16S V4 indexes, so this file will need to be swapped with the corresponding indexfordemux.txt file for other regions or custom primers.\ 
 \
 The script for initiating the Snakemake run using Slurm (submitSnakemake.sh) and the Snakefile encoding the analysis are found in the top 16s-demux file.\
-  <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/16s-demux_fileStructure.png?raw=true" alt="Alt Text" width="400" height="400">
+  <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/16s-demux_fileStructure.png?raw=true" alt="Alt Text" width="400" height="400">
 
 **Note:** Most common issues in demultiplexing arise from errors in the input files. To help with troubleshooting, a quick check of the inputs will be conducted as the first step of the pipeline, and a summary will be output to '16s-demux/workflow/out/inputCheck_log.txt' (or '16s-demux/workflow/test_out/inputCheck_log.txt' for tests). If you encounter errors during the actual run but not in the test run, it may be helpful to check this log to ensure the inputs are properly formatted.  
 
@@ -193,7 +193,7 @@ __Note:__ Periods in the samplenames are okay for this demultiplexing process, b
 To build a Docker image, ensure the necessary field are arranged properly, and build from the Dockerfile:
 1. All necessary files are included in ‘docker-emux.zip’ in **ZENODO LOCATION**. Download and unzip the file. The following file structure should be created:\
 \
-<img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/docker_demux_fileStructure.png?raw=true" alt="Alt Text" width="400" height="400">\
+<img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/docker_demux_fileStructure.png?raw=true" alt="Alt Text" width="400" height="400">\
 \
 ‘Dockerfile’ and ‘requirements.txt’ are needed for the building process, and the fastq_data directory contains example data for the test. All of the code is contained within the ‘16s-demux’ directory, and outputs will be generated there as well.
 4. Move to the directory containing the Dockerfile and run the following:\
@@ -201,7 +201,7 @@ To build a Docker image, ensure the necessary field are arranged properly, and b
 \
 The image will be created locally with the name and version provided following -t. The build should take a few minutes, and if it is completed successfully, the the final output will look something like this:\
 \
- <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/docker_buildSuccessOutput.png?raw=true" alt="Alt Text" width="400" height="400">\
+ <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/docker_buildSuccessOutput.png?raw=true" alt="Alt Text" width="400" height="400">\
 \
 __Note:__ This step will likely require more resources than are available on a HPC login node, so be sure you are on a compute node or use a job manager to allocate resources.
 
@@ -214,7 +214,7 @@ To build a singularity/Apptainer image, ensure the necessary files are arranged 
 
 1. All necessary files are included in ‘demux.zip’ in **ZENODO LOCATION**. Download and unzip the file. The following file structure should be created:\
 \
- <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/sing_demux_fileStructure.png?raw=true" alt="Alt Text" width="400" height="400">\
+ <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/sing_demux_fileStructure.png?raw=true" alt="Alt Text" width="400" height="400">\
 \
 ‘16s-demux.def’ and ‘requirements.txt’ are both needed for the building process, and the fastq_data contains example data for the test. All of the code is contained within the ‘16S-demux’ directory, and outputs will be generated there as well.
 
@@ -223,7 +223,7 @@ To build a singularity/Apptainer image, ensure the necessary files are arranged 
 `singularity build demux-image.sif 16s-demux.def`\
 \
 The image will be created locally and a file ‘demux-image.sif’ will be created in the current working directory. The build should take less than 10 minutes, and if it is completed successfully, the the final output will look something like this:\
-<img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/buildSuccessOutput.png?raw=true" alt="Alt Text" width="750" height="400">\
+<img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/buildSuccessOutput.png?raw=true" alt="Alt Text" width="750" height="400">\
 \
 Once completed, the file 'demux-image.sif' should be found in the current working directory.
 
@@ -243,7 +243,7 @@ If you want to amplify another region, you can use this template to make a custo
 **(include image schematic of the reads with the index/spacer/genespecific region, etc?)**\
 \
 As a reminder, the final structure of reads after the library prep will look something like this (lengths not to scale):\
-  <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/primerStructureImage.png?raw=true" alt="Alt Text" width="400" height="400">\
+  <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/primerStructureImage.png?raw=true" alt="Alt Text" width="400" height="400">\
 The round 1 indexes have variable lengths or ‘phases’ as shown in the table and image below:
 
 | phase | variable FP | variable RP |
@@ -257,7 +257,7 @@ The round 1 indexes have variable lengths or ‘phases’ as shown in the table 
 | 6 | ATCGAT | C|
 | 7 | GCAAGTC  | |
 
- <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/phasedPrimerImage.png?raw=true" alt="Alt Text" width="400" height="400">
+ <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/phasedPrimerImage.png?raw=true" alt="Alt Text" width="400" height="400">
 
 However, during the demultiplexing, we treat the reads as if they have 7 base pair indexes on both ends. Any of the 7 base pairs that are not filled in with the index will be the spacer/gene-specific primer sequence. The table below shows the default indexes, with the actual index base pairs underlined, the spacer base pairs in lowercase, and the gene-specific primer regions uppercase and bolded. (The ‘bc’ or barcode column is simply the concatenated strings of read1index and read2index). The index, spacer, and gene specific regions will need to be edited according to the changes made.\
 
@@ -320,12 +320,12 @@ This will determine the jobs to be run and inform you if there are missing input
 ## Test run full outputs
 Within ‘workflow’, there should be a ‘test_out’ directory, containing ‘demux’ and ‘trimmed’ directories. Under ‘demux’, there should be four sets of 3 files; each should have 1 * .extract.log file, and 2 .fastq.gz files. There should also be two directories: ‘R1’ and ‘R2’. The contents of ‘R1’ and ‘R2’ should have the same filenames (but correspond to forward and reverse reads for the specified sample). For each sample in the above, there should be 8 files, ending with ‘-L * .fastq.gz’, where * is an integer from 0 to 7:
 
- <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/TestSuccessOutputs_1.png?raw=true" alt="Alt Text" height="600">
+ <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/TestSuccessOutputs_1.png?raw=true" alt="Alt Text" height="600">
 
 
 Within the ‘trimmed’ directory, there should be two subdirectories, ‘group1’ and 'group2', and within each of those, there should be directories ‘R1’, ‘R2’, ‘removed’, and two summary files: ‘lowReadsSummary.txt’, and ‘summary.txt’: 
 
- <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/testSuccessOutputs_2.png?raw=true" alt="Alt Text" height="600">
+ <img src="https://github.com/kchuanglab/Amplicon-dual-index-demux/blob/main/images/testSuccessOutputs_2.png?raw=true" alt="Alt Text" height="600">
 
 If these files are generated in ‘trimmed’, the run has been successful!
 

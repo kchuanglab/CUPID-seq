@@ -4,10 +4,10 @@ for instructions on formulating inputs and designing/specifying indexes. Install
 
 
 **Contents:**
-* [Databases:]()
-* [Using Docker](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#using-singularityapptainer)
-* [Building with Singularity/Apptainer](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#building-with-singularityapptainer)
-* [Using Singularity](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/README.md#inputs)
+* [Databases:](https://github.com/kchuanglab/CUPID-seq/blob/main/demux-and-dada2_README.md#databases)
+* [Using Docker](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/demux-and-dada2_README.md#using-singularityapptainer)
+* [Building with Singularity/Apptainer](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/demux-and-dada2_README.md#building-with-singularityapptainer)
+* [Using Singularity](https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/demux-and-dada2_README.md#inputs)
 
 ## Databases:
 The following databases are included in the images, but others can be added:
@@ -24,7 +24,7 @@ To analyze our code to analyze dual-indexed sequencing data, first ensure that D
 
 
 1. **Installation and setting up the Docker image** \
-  There are two ways to acquire the docker image needed for analysis, either by pulling directly from docker hub (the easiest approach) or using the dockerfile and other inputs provided in 'docker-both.zip' (**ZENODO LOCATION**) to build the docker image.\
+  There are two ways to acquire the docker image needed for analysis, either by pulling directly from docker hub (the easiest approach) or using the dockerfile and other inputs provided in 'docker-both.zip' ([here](https://drive.google.com/drive/u/0/folders/1VuWS_-gbXBxw8aFTJj2s_G4Wgw281rvf)) to build the docker image.\
 \
   **Pulling image:** \
   Launch Docker. Then in a terminal, run `docker pull rlporter24/demux-dada2:1.0`. This will make a local copy of the Docker image 'rlporter24/demux-dada2:1.0', which contains the code and environment needed to process the data, as well as example input files for running a test.\
@@ -83,9 +83,10 @@ The {container_path} should be provided relative to the '16s-demux' directory, w
 
 
 ## Using Singularity/Apptainer:
+  __Note:__ This current implementation doesn't fully integrat with SLURM, so a new version will be provided at some point. Hold tight!
 To build a singularity/Apptainer image, ensure the necessary files are arranged properly and build from the '.def' file:
 
-1. All necessary files are included in ‘BOTH.zip’ in **ZENODO LOCATION**. Download and unzip the file. The following file structure should be created:\
+1. All necessary files are included in ‘apptainer-demux-dada2.zip’ in ([here](https://drive.google.com/drive/u/0/folders/1VuWS_-gbXBxw8aFTJj2s_G4Wgw281rvf)). Download and unzip the file. The following file structure should be created:\
 <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/both_fileStructure.png?raw=true" alt="Alt Text" width="400" height="400">\
 <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/both-16s-demux_fileStructure.png?raw=true" alt="Alt Text" width="400" height="400">\
   ‘16s-demux.def’ and ‘requirements.txt’ are both needed for the building process, the fastq_data contains example data for the test, and databases contains two database options for species inference. All of the code is contained within the ‘16S-demux’ directory, and outputs will be generated there as well.
@@ -97,7 +98,7 @@ To build a singularity/Apptainer image, ensure the necessary files are arranged 
   The image will be created locally and a file ‘both.sif’ will be created in the current working directory. The build should take less than 1 hour, and if it is completed successfully, the the final output will look something like this:\
   <img src="https://github.com/rlporter24/Amplicon-dual-index-demux/blob/main/images/buildSuccessOutput.png?raw=true" alt="Alt Text" width="750" height="400">\
   REPLACE IMAGE!\
-  Once completed, the file 'demux-image.sif' should be found in the current working directory.\
+  Once completed, the file 'both.sif' should be found in the current working directory.\
 \
 If you are running through a job manager like Slurm, edit the included script 'slurmBuild.sh' to speicfy the desired number of nodes, time, and memory, then initiate a run. This should take less than 1 hour, and the file 'both.sif' should be created. 
 
